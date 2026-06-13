@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Dashboard Instalasi</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Font Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center justify-center min-h-screen m-0">
+
+    <h1 class="text-2xl md:text-3xl font-semibold mb-10 text-center text-slate-700">Dashboard Operasional</h1>
+    
+    <!-- Container Menu -->
+    <div class="flex flex-wrap justify-center gap-5 w-full px-5 max-w-4xl">
+        
+        <!-- Menu Card 1 -->
+        <a href="menu1.html" class="w-full sm:w-auto min-w-[160px] bg-white border border-slate-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-blue-600 hover:text-white hover:border-blue-600">
+            Menu 1
+        </a>
+
+        <!-- Menu Card 2 -->
+        <a href="menu2.html" class="w-full sm:w-auto min-w-[160px] bg-white border border-slate-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-blue-600 hover:text-white hover:border-blue-600">
+            Menu 2
+        </a>
+
+        <!-- Menu Card 3 -->
+        <a href="menu3.html" class="w-full sm:w-auto min-w-[160px] bg-white border border-slate-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:bg-blue-600 hover:text-white hover:border-blue-600">
+            Menu 3
+        </a>
+
+    </div>
+
+</body>
+</html>
