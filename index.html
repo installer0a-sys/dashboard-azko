@@ -23,17 +23,30 @@
             }
         }
     </script>
+
+    <!-- Gaya CSS Murni untuk Spinner Animasi (Bebas Error Google Sites) -->
+    <style>
+        .custom-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border-left-color: #4f46e5;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex flex-col items-center justify-center min-h-screen m-0 relative">
 
-    <!-- OVERLAY LOADING TRANSPARAN (Mengunci Layar & Klik) -->
-    <div id="loading-overlay" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center pointer-events-auto">
-        <div class="bg-white/90 p-6 rounded-2xl shadow-xl flex flex-col items-center max-w-xs border border-white/20">
-            <!-- Animasi Spinner Berputar Tailwind -->
-            <svg class="animate-spin h-10 w-10 text-indigo-600 mb-4" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
+    <!-- OVERLAY LOADING (Secara default disembunyikan total dengan style="display: none;") -->
+    <div id="loading-overlay" style="display: none;" class="fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-50 flex-col items-center justify-center pointer-events-auto">
+        <div class="bg-white p-6 rounded-2xl shadow-xl flex flex-col items-center max-w-xs border border-white/20">
+            <div class="custom-spinner"></div>
             <p class="text-sm md:text-base font-semibold text-slate-700 text-center">
                 Mengalihkan ke website baru...
             </p>
@@ -43,55 +56,41 @@
         </div>
     </div>
 
-    <!-- KONTEN UTAMA (Akan terlihat transparan di belakang overlay) -->
+    <!-- KONTEN UTAMA DASHBOARD -->
     <div class="text-center mb-10 px-5">
         <h1 class="text-2xl md:text-3xl font-semibold text-slate-700 tracking-tight">Dashboard Operasional Azko Kudus</h1>
     </div>
     
     <!-- Container Menu -->
     <div class="flex flex-wrap justify-center gap-5 w-full px-5 max-w-4xl">
-        
-        <!-- Menu Card 1 : Soft Indigo -->
         <a href="barang-service-sr.html" class="w-full sm:w-auto min-w-[160px] bg-indigo-50 border border-indigo-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-indigo-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-indigo-100 hover:text-indigo-900 hover:border-indigo-300">
             Data Barang Service & SR
         </a>
-
-        <!-- Menu Card 2 : Soft Emerald -->
         <a href="data-barang-gudang-vm.html" class="w-full sm:w-auto min-w-[160px] bg-emerald-50 border border-emerald-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-emerald-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-emerald-100 hover:text-emerald-900 hover:border-emerald-300">
             Data Barang Gudang & VM
         </a>
-
-        <!-- Menu Card 3 : Soft Rose -->
         <a href="whatsapp-blast.html" class="w-full sm:w-auto min-w-[160px] bg-rose-50 border border-rose-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-rose-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-rose-100 hover:text-rose-900 hover:border-rose-300">
             Whatsapp Blast
         </a>
-        
-        <!-- Menu Card 4 : Soft Amber -->
         <a href="jadwal-a542.html" class="w-full sm:w-auto min-w-[160px] bg-amber-50 border border-amber-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-amber-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-amber-100 hover:text-amber-900 hover:border-amber-300">
-                Jadwal A542
+            Jadwal A542
         </a>
-
-        <!-- Menu Card 5 : Soft Sky (Menu Baru) -->
         <a href="inventory.html" class="w-full sm:w-auto min-w-[160px] bg-sky-50 border border-sky-200 rounded-xl shadow-sm px-8 py-10 text-center text-lg font-semibold text-sky-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:bg-sky-100 hover:text-sky-900 hover:border-sky-300">
             Inventory
         </a>
-
     </div>
 
-    <!-- Skrip Pengalihan & Kontrol Overlay -->
+    <!-- Skrip Logika Deteksi Lingkungan -->
     <script>
-        const targetUrl = "https://azko-kudus.web.id/portal"; // Ganti dengan URL tujuan Anda
-        let timeLeft = 5; // Durasi hitung mundur dalam detik
+        const targetUrl = "https://portal-azko.pages.dev/portal"; 
+        let timeLeft = 5; 
 
-        // Mengecek apakah halaman dibuka langsung (bukan di dalam iframe Google Sites)
         if (window.self === window.top) {
-            // Aktifkan dan munculkan overlay loading pengunci layar
             const overlayElement = document.getElementById('loading-overlay');
             const countdownElement = document.getElementById('countdown');
-            overlayElement.classList.remove('hidden');
-            overlayElement.classList.add('flex');
+            
+            overlayElement.style.display = 'flex';
 
-            // Jalankan fungsi hitung mundur 1 detik sekali
             const interval = setInterval(function() {
                 timeLeft -= 1;
                 countdownElement.textContent = timeLeft;
@@ -102,7 +101,7 @@
                 }
             }, 1000);
         } else {
-            console.log("Halaman di dalam iframe Google Sites, overlay loading dan redirect dimatikan otomatis.");
+            document.getElementById('loading-overlay').style.display = 'none';
         }
     </script>
 
