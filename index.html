@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <!-- Sisipkan skrip redirect di bawah ini (ganti URL tujuan dan waktu detik sesuai kebutuhan) -->
-    <meta http-equiv="refresh" content="0; url=https://portal-azko.pages.dev/portal">
+    
     <link rel="canonical" href="https://portal-azko.pages.dev/portal">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +14,16 @@
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    // Mengecek apakah halaman dibuka langsung (bukan di dalam iframe)
+    if (window.self === window.top) {
+        // Hanya lakukan redirect jika dibuka langsung di tab browser
+        window.location.href = "https://website-tujuan.com";
+    } else {
+        // Jika di dalam iframe (seperti Google Sites), log pesan ke konsol dan batalkan redirect
+        console.log("Halaman dimuat di dalam iframe, pengalihan dibatalkan.");
+    }
+</script>
     
     <!-- Konfigurasi Font Tailwind -->
     <script>
