@@ -2,28 +2,14 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- Sisipkan skrip redirect di bawah ini (ganti URL tujuan dan waktu detik sesuai kebutuhan) -->
-    
-    <link rel="canonical" href="https://azko-kudus.web.id/portal">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Azko Kudus</title>
     
     <!-- Google Fonts: Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-    // Mengecek apakah halaman dibuka langsung (bukan di dalam iframe)
-    if (window.self === window.top) {
-        // Hanya lakukan redirect jika dibuka langsung di tab browser
-        window.location.href = "https://website-tujuan.com";
-    } else {
-        // Jika di dalam iframe (seperti Google Sites), log pesan ke konsol dan batalkan redirect
-        console.log("Halaman dimuat di dalam iframe, pengalihan dibatalkan.");
-    }
-</script>
+    <script src="https://tailwindcss.com"></script>
     
     <!-- Konfigurasi Font Tailwind -->
     <script>
@@ -38,9 +24,29 @@
         }
     </script>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col items-center justify-center min-h-screen m-0">
+<body class="bg-slate-50 text-slate-800 flex flex-col items-center justify-center min-h-screen m-0 relative">
 
-    <h1 class="text-2xl md:text-3xl font-semibold mb-10 text-center text-slate-700 tracking-tight">Dashboard Operasional Azko Kudus</h1>
+    <!-- OVERLAY LOADING TRANSPARAN (Mengunci Layar & Klik) -->
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-[2px] z-50 flex flex-col items-center justify-center pointer-events-auto">
+        <div class="bg-white/90 p-6 rounded-2xl shadow-xl flex flex-col items-center max-w-xs border border-white/20">
+            <!-- Animasi Spinner Berputar Tailwind -->
+            <svg class="animate-spin h-10 w-10 text-indigo-600 mb-4" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="text-sm md:text-base font-semibold text-slate-700 text-center">
+                Mengalihkan ke website baru...
+            </p>
+            <p class="text-xs text-slate-500 mt-1">
+                Mohon tunggu <span id="countdown" class="font-bold text-indigo-600">5</span> detik
+            </p>
+        </div>
+    </div>
+
+    <!-- KONTEN UTAMA (Akan terlihat transparan di belakang overlay) -->
+    <div class="text-center mb-10 px-5">
+        <h1 class="text-2xl md:text-3xl font-semibold text-slate-700 tracking-tight">Dashboard Operasional Azko Kudus</h1>
+    </div>
     
     <!-- Container Menu -->
     <div class="flex flex-wrap justify-center gap-5 w-full px-5 max-w-4xl">
@@ -71,6 +77,34 @@
         </a>
 
     </div>
+
+    <!-- Skrip Pengalihan & Kontrol Overlay -->
+    <script>
+        const targetUrl = "https://azko-kudus.web.id/portal"; // Ganti dengan URL tujuan Anda
+        let timeLeft = 5; // Durasi hitung mundur dalam detik
+
+        // Mengecek apakah halaman dibuka langsung (bukan di dalam iframe Google Sites)
+        if (window.self === window.top) {
+            // Aktifkan dan munculkan overlay loading pengunci layar
+            const overlayElement = document.getElementById('loading-overlay');
+            const countdownElement = document.getElementById('countdown');
+            overlayElement.classList.remove('hidden');
+            overlayElement.classList.add('flex');
+
+            // Jalankan fungsi hitung mundur 1 detik sekali
+            const interval = setInterval(function() {
+                timeLeft -= 1;
+                countdownElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    window.location.href = targetUrl;
+                }
+            }, 1000);
+        } else {
+            console.log("Halaman di dalam iframe Google Sites, overlay loading dan redirect dimatikan otomatis.");
+        }
+    </script>
 
 </body>
 </html>
